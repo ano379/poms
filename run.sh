@@ -1,5 +1,5 @@
-mkdir result
-mkdir build
+# mkdir result
+# mkdir build
 make
 cd build
 ./run
