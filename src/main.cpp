@@ -11,11 +11,11 @@ int main()
 // ==========================================================================
     if(test_poms_prob){
         // poms prob
-        string f_name = "../data/amazon_edges.txt";
+        string f_name = "../data/amazon.txt";
         string of_name = "../result/amazon_poms_k";
         vector<int> ks = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         test_poms_k(f_name, f_name+"_query", of_name, of_name+"_stats", ks);
-        f_name = "../data/noun_edges.txt";
+        f_name = "../data/wordnet.txt";
         of_name = "../result/wordnet_poms_k";
         test_poms_k(f_name, f_name+"_query", of_name, of_name+"_stats", ks);
         f_name = "../data/imagenet.txt";
@@ -34,10 +34,13 @@ int main()
     }
 // ==========================================================================
 if(test_hpdfs_time){
-        string f_name = "../data/amazon_edges.txt";
+        string f_name = "../data/amazon.txt";
         string of_name = "../result/real_hpdfs_time";
+        ofstream ofile(of_name);
+        ofile<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
+        ofile.close();
         test_hpdfs_f(f_name, of_name);
-        f_name = "../data/noun_edges.txt";
+        f_name = "../data/wordnet.txt";
         test_hpdfs_f(f_name, of_name);
         f_name = "../data/imagenet.txt";
         test_hpdfs_f(f_name, of_name);
@@ -45,12 +48,12 @@ if(test_hpdfs_time){
     }
 // ==========================================================================
 if(test_poms_time){
-        string f_name = "../data/amazon_edges.txt";
+        string f_name = "../data/amazon.txt";
         string of_name = "../result/real_poms_time";
         int sample_size = 1000; 
         // int sample_size = 0; //for testing all the leaves
         poms_time(f_name, of_name, sample_size);
-        f_name = "../data/noun_edges.txt";
+        f_name = "../data/wordnet.txt";
         poms_time(f_name, of_name, sample_size);
         f_name = "../data/imagenet.txt";
         poms_time(f_name, of_name, sample_size);
@@ -66,11 +69,11 @@ if(test_poms_time){
 }
 // =============================================================================
 if(get_level_stats){
-        string f_name = "../data/amazon_edges.txt";
+        string f_name = "../data/amazon.txt";
         string of_name = "../result/amazon_poms_k";
         vector<int> ks = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         process_lvl(f_name, of_name+"_stats", f_name+"_query", of_name+"_lvl", ks);
-        f_name = "../data/noun_edges.txt";
+        f_name = "../data/wordnet.txt";
         of_name = "../result/wordnet_poms_k";
         process_lvl(f_name, of_name+"_stats", f_name+"_query", of_name+"_lvl", ks);
         f_name = "../data/imagenet.txt";

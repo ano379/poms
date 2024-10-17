@@ -1523,13 +1523,18 @@ void test_poms_k(string f_name, string q_file, string of_name, string stats, vec
     //read from query file
     ifstream ifile(q_file);
     if(!ifile){
-        gen_query_poms_real(f_name, q_file);
+        if(syn){
+            gen_query_poms(f_name, q_file);
+        }else{
+            string q_file = f_name + "_query";
+            gen_query_poms(f_name, q_file);
+        }
         ifile.open(q_file);
     }
     int t;
     string s;
-    getline(ifile, s);
     if(syn){
+        getline(ifile, s);
         int sz = 1000;
         for(int i = 0; i < sz; i++){
             ifile>>t;
@@ -2627,7 +2632,6 @@ void test_hpdfs_f(string f_name, string of_name){
         bridge_time += u.GetRuntime();
     }
     ofstream ofile(of_name, ios::app);
-    ofile<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
     ofile<<f_name<<", "<<naive_time/repeats<<", "<<nm_time/repeats<<", "<<bridge_time/repeats<<", "<<naive_time/nm_time<<", "<<naive_time/bridge_time<<endl;
 }
 
@@ -2992,7 +2996,6 @@ void poms_time(string f_name, string of_name, int sample_size = 0){
             ifile.open(q_file);
             int t;
             string s;
-            getline(ifile, s);
             if(!ifile.is_open()){
                 gen_query_poms_real(f_name, q_file);
                 ifile.open(q_file);
