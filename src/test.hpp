@@ -1547,7 +1547,7 @@ void test_poms_k(string f_name, string q_file, string of_name, string stats, vec
     }
     //write result to of_name
     ofstream ofile(of_name, ios::app);
-    ofile<<"k, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
+    ofile<<"k, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_query, max_FIO_query, max_new_taciturn_query, max_LMNT_taciturn_query, #classical_clicks, #FIO_clicks, max_classical_clicks, max_FIO_clicks"<<endl;
     cout<<"leaf size: "<<leaves.size()<<endl;
     vector<int> visited(dag.n, 0);
     Tree hpdfs_tree;
