@@ -3123,6 +3123,7 @@ void process_lvl(string data, string f_name, string q_name, string of_name, vect
                 cla_clicks[query_lvl[i]] += cla_click;
                 max_5[query_lvl[i]] = max(max_5[query_lvl[i]], cla_click);
             }
+            break;
         }else{
             //skip the query stats
             for(int i = 0; i < q_size; i++){
