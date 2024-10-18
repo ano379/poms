@@ -1728,10 +1728,10 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
             max_cla_click = 0, max_oc_click = 0;
             // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
-            ofstream ofile_stats(stats, ios::app);
-            ofile_stats<<"k: "<<k<<endl;
-            ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
-            ofile_stats.close();
+            // ofstream ofile_stats(stats, ios::app);
+            // ofile_stats<<"k: "<<k<<endl;
+            // ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
+            // ofile_stats.close();
             for(int i = 0; i < leaves.size(); i++){
                 if(i % 50 == 0){
                     cout<<"leaf: "<<i<<endl;
@@ -1870,10 +1870,10 @@ void poms_vary_d(int n, int k, float r){
             max_cla_click = 0, max_oc_click = 0;
             // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
-            ofstream ofile_stats(stats, ios::app);
-            ofile_stats<<"k: "<<k<<endl;
-            ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
-            ofile_stats.close();
+            // ofstream ofile_stats(stats, ios::app);
+            // ofile_stats<<"k: "<<k<<endl;
+            // ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
+            // ofile_stats.close();
             for(int i = 0; i < leaves.size(); i++){
                 if(i % 50 == 0){
                     cout<<"leaf: "<<i<<endl;
@@ -2011,10 +2011,10 @@ void poms_vary_r(int n, int k, int d, vector<float> rs = vector<float>{0, 0.1, 0
             max_cla_click = 0, max_oc_click = 0;
             // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
-            ofstream ofile_stats(stats, ios::app);
-            ofile_stats<<"k: "<<k<<endl;
-            ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
-            ofile_stats.close();
+            // ofstream ofile_stats(stats, ios::app);
+            // ofile_stats<<"k: "<<k<<endl;
+            // ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
+            // ofile_stats.close();
             for(int i = 0; i < leaves.size(); i++){
                 if(i % 50 == 0){
                     cout<<"leaf: "<<i<<endl;
@@ -2152,10 +2152,10 @@ void poms_vary_n(int k, int d, float r){
             max_cla_click = 0, max_oc_click = 0;
             // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
-            ofstream ofile_stats(stats, ios::app);
-            ofile_stats<<"k: "<<k<<endl;
-            ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
-            ofile_stats.close();
+            // ofstream ofile_stats(stats, ios::app);
+            // ofile_stats<<"k: "<<k<<endl;
+            // ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
+            // ofile_stats.close();
             for(int i = 0; i < leaves.size(); i++){
                 if(i % 50 == 0){
                     cout<<"leaf: "<<i<<endl;
