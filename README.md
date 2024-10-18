@@ -8,6 +8,18 @@
 ### result files
 The experiment results will be saved in the  folder named result.
 #### IGS Interaction:
+measures:
+1. the average number of queries(clicks) per IGS instance:
+#classical_query(#classical_clicks)
+#FIO_query(#FIO_clicks)
+#new_taciturn_query
+#LMNT_taciturn_query 
+2. the maximum number of queries of all instances:
+max_cla_query(max_classical_clicks)
+max_FIO_query(max_FIO_clicks)
+max_new_taciturn_query
+max_LMNT_taciturn_query 
+
 | experiment    | result file |
 | -------- | ------- |
 | (#queries & #clicks) vs k |  amazon_poms_k; imagenet_poms_k; wordnet_poms_k; syn_poms_vary_k (synthetic dataset). |
