@@ -50,8 +50,8 @@ if(test_hpdfs_time){
 if(test_poms_time){
         string f_name = "../data/amazon.txt";
         string of_name = "../result/real_poms_time";
-        int sample_size = 1000; 
-        // int sample_size = 0; //for testing all the leaves
+        // int sample_size = 1000; //for testing 1000 random leaves
+        int sample_size = 0; //for testing all the leaves
         ofstream ofile(of_name);
         ofile<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
         ofile.close();
