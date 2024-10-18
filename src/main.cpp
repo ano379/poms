@@ -72,13 +72,16 @@ if(get_level_stats){
         string f_name = "../data/amazon.txt";
         string of_name = "../result/amazon_poms_k";
         vector<int> ks = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        process_lvl(f_name, of_name+"_stats", f_name+"_query", of_name+"_lvl", ks);
+        string level_file = "../result/amazon_poms_lvl";
+        process_lvl(f_name, of_name+"_stats", f_name+"_query", level_file, ks);
         f_name = "../data/wordnet.txt";
         of_name = "../result/wordnet_poms_k";
-        process_lvl(f_name, of_name+"_stats", f_name+"_query", of_name+"_lvl", ks);
+        level_file = "../result/wordnet_poms_lvl";
+        process_lvl(f_name, of_name+"_stats", f_name+"_query", level_file, ks);
         f_name = "../data/imagenet.txt";
         of_name = "../result/imagenet_poms_k";
-        process_lvl(f_name, of_name+"_stats", f_name+"_query",of_name+"_lvl", ks);
+        level_file = "../result/imagenet_poms_lvl";
+        process_lvl(f_name, of_name+"_stats", f_name+"_query", level_file, ks);
 }
     return 0;
 }
