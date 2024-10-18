@@ -2980,7 +2980,7 @@ void poms_time(string f_name, string of_name, int sample_size = 0){
     fstream f;
     f.open(of_name, ios::app);
     utility u;
-    f<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_seedup"<<endl;
+    // f<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_seedup"<<endl;
         //generate the graph
         string q_file = f_name + "_query";
         int num_comp = 0, max_comp_edge = 0, p95_max_comp_edge = 0;

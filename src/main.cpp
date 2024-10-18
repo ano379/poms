@@ -52,6 +52,9 @@ if(test_poms_time){
         string of_name = "../result/real_poms_time";
         int sample_size = 1000; 
         // int sample_size = 0; //for testing all the leaves
+        ofstream ofile(of_name);
+        ofile<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
+        ofile.close();
         poms_time(f_name, of_name, sample_size);
         f_name = "../data/wordnet.txt";
         poms_time(f_name, of_name, sample_size);
