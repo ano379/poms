@@ -1527,7 +1527,7 @@ void test_poms_k(string f_name, string q_file, string of_name, string stats, vec
             gen_query_poms(f_name, q_file);
         }else{
             string q_file = f_name + "_query";
-            gen_query_poms(f_name, q_file);
+            gen_query_poms_real(f_name, q_file);
         }
         ifile.open(q_file);
     }
@@ -2437,7 +2437,7 @@ void test_hpdfs_syn(){
     ofile.close();
     utility u;
     vector<int> visited;
-    int repeats = 1;
+    int repeats = 5;
     for(int d = 10; d <= 50; d+= 10){
         //generate the graph
         string f_name = "../data/syn/syn_" + to_string(n/10000) + "w_d" + to_string(d) + "_r01";
