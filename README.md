@@ -29,6 +29,8 @@ measures:
 | (#queries & #clicks) vs d |  syn_poms_vary_d   |
 
 #### HPDFS-tree Computation Time:
+measure: dnm_time, base_time, bridge_time
+
 | experiment    | result file |
 | -------- | ------- |
 | on real datasets: Amazon, Imagenet, Wordnet | real_hpdfs_time |
@@ -37,6 +39,7 @@ measures:
 | synthetic data, time vs n |  syn_hpdfs_d30_r01_varyn   |
 
 #### IGS Computation Time:
+measure: dnm_time, base_time, bridge_time
 | experiment    | result file |
 | -------- | ------- |
 | on real datasets: Amazon, Imagenet, Wordnet | real_poms_time |

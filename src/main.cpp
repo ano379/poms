@@ -11,6 +11,7 @@ int main()
 // ==========================================================================
     if(test_poms_prob){
         // poms prob
+        cout<<"Testing igs interaction"<<endl;
         string f_name = "../data/amazon.txt";
         string of_name = "../result/amazon_poms_k";
         vector<int> ks = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -34,10 +35,11 @@ int main()
     }
 // ==========================================================================
 if(test_hpdfs_time){
+        cout<<"Testing hpdfs time"<<endl;
         string f_name = "../data/amazon.txt";
         string of_name = "../result/real_hpdfs_time";
         ofstream ofile(of_name);
-        ofile<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
+        ofile<<"file, dnm_time, base_time, bridge_time, base_speedup, bridge_speedup"<<endl;
         ofile.close();
         test_hpdfs_f(f_name, of_name);
         f_name = "../data/wordnet.txt";
@@ -48,12 +50,13 @@ if(test_hpdfs_time){
     }
 // ==========================================================================
 if(test_poms_time){
+        cout<<"Testing igs time"<<endl;
         string f_name = "../data/amazon.txt";
         string of_name = "../result/real_poms_time";
         // int sample_size = 1000; //for testing 1000 random leaves
         int sample_size = 0; //for testing all the leaves
         ofstream ofile(of_name);
-        ofile<<"file, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
+        ofile<<"file, dnm_time, base_time, bridge_time, base_speedup, bridge_speedup"<<endl;
         ofile.close();
         poms_time(f_name, of_name, sample_size);
         f_name = "../data/wordnet.txt";

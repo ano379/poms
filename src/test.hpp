@@ -2542,7 +2542,7 @@ void poms_vary_n_time(string of_name, int d, float r, int sample_size){
     f.close();
     f.open(of_name, ios::app);
     utility u;
-    f<<"n, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
+    f<<"n, dnm_time, base_time, bridge_time, base_speedup, bridge_speedup"<<endl;
     vector<int> vary_n = {100000, 200000, 400000, 600000, 800000, 1000000};
     for(int n: vary_n){
         //generate the graph
@@ -2656,7 +2656,7 @@ void poms_vary_d_time(string of_name, int n, float r, int sample_size){
     f.close();
     f.open(of_name, ios::app);
     utility u;
-    f<<"d, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
+    f<<"d, dnm_time, base_time, bridge_time, base_speedup, bridge_speedup"<<endl;
     vector<int> ds = {10, 20, 30, 40, 50};
     for(int d: ds){
         //generate the graph
@@ -2769,7 +2769,7 @@ void poms_vary_r_time(string of_name, int n, int d, int sample_size){
     f.close();
     f.open(of_name, ios::app);
     utility u;
-    f<<"r, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
+    f<<"r, dnm_time, base_time, bridge_time, base_speedup, bridge_speedup"<<endl;
     vector<float> rs = {0, 0.1, 0.2, 0.3, 0.4};
     for(float r: rs){
         //generate the graph
