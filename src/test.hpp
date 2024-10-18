@@ -1685,11 +1685,12 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
         }else{
             gen_query_poms(f_name, q_file);
         }
+        ifile.open(q_file);
     }
     int t;
     string s;
     if(syn){
-         getline(ifile, s);
+        getline(ifile, s);
         int sz = 1000;
         for(int i = 0; i < sz; i++){
             ifile>>t;
@@ -1725,7 +1726,7 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
             int cla_prob_sum = 0, one_click_prob_sum = 0, taci_prob_sum = 0, tods_taci_prob_sum = 0, oc_click_sum = 0, cla_click_sum = 0;
             int max_cla_prob = 0, max_oc_prob = 0, max_taci_prob = 0, max_tods_taci_prob = 0,
             max_cla_click = 0, max_oc_click = 0;
-            vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
+            // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
             ofstream ofile_stats(stats, ios::app);
             ofile_stats<<"k: "<<k<<endl;
@@ -1744,10 +1745,10 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
                 // pair<int,int> stat = poms_classical(k, dag, oracle, ans_t);
                 cla_prob_sum += stat.first;
                 max_cla_prob = max(max_cla_prob, stat.first);
-                cla_prob.push_back(stat.first);
+                // cla_prob.push_back(stat.first);
                 cla_click_sum += stat.second;
                 max_cla_click = max(max_cla_click, stat.second);
-                cla_clicks.push_back(stat.second);
+                // cla_clicks.push_back(stat.second);
                 if(ans_t != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error cla: the target is not correct"<<endl;
@@ -1760,11 +1761,11 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
                 visited = vector<int>(dag.n, 0);
                 pair<int,int> stat_one_click =  poms_one_click_bridge(k, dag, oracle, ans_t_one_click, visited, hpdfs_tree);
                 one_click_prob_sum += stat_one_click.first;
-                one_click_prob.push_back(stat_one_click.first);
+                // one_click_prob.push_back(stat_one_click.first);
                 max_oc_prob = max(max_oc_prob, stat_one_click.first);
                 oc_click_sum += stat_one_click.second;
                 max_oc_click = max(max_oc_click, stat_one_click.second);
-                oc_clicks.push_back(stat_one_click.second);
+                // oc_clicks.push_back(stat_one_click.second);
                 if(ans_t_one_click != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error: one click: the target is not correct"<<endl;
@@ -1780,7 +1781,7 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
                     cout<<"Expected: "<<t<<", got: "<<ans_t_taci<<endl;
                     exit(1);
                 }
-                taciturn_prob.push_back(prob_taci);
+                // taciturn_prob.push_back(prob_taci);
                 taci_prob_sum += prob_taci;
                 max_taci_prob = max(max_taci_prob, prob_taci);
 
@@ -1793,24 +1794,9 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
                     cout<<"Expected: "<<t<<", got: "<<ans_t_tods_taci<<endl;
                     exit(1);
                 }
-                tods_taci_prob.push_back(prob_tods_taci);
+                // tods_taci_prob.push_back(prob_tods_taci);
                 tods_taci_prob_sum += prob_tods_taci;
                 max_tods_taci_prob = max(max_tods_taci_prob, prob_tods_taci);
-                if(i % 2000 == 0 || i == leaves.size() - 1){
-                    ofstream ofile_stats(stats, ios::app);
-                    for(int i = 0; i < one_click_prob.size(); i++){
-                        ofile_stats<<cla_prob[i]<<" "<<one_click_prob[i]<<" "<<taciturn_prob[i]<<" "
-                        <<tods_taci_prob[i]<<" "<<oc_clicks[i]<<" "<<cla_clicks[i]<<endl;
-                    }
-                    //delete the temp result
-                    ofile_stats.close();
-                    cla_prob.clear();
-                    one_click_prob.clear();
-                    taciturn_prob.clear();
-                    tods_taci_prob.clear();
-                    oc_clicks.clear();
-                    cla_clicks.clear();
-                }
             }
             // cout.precision(2);
             ofile<<k<<", "<<(double)cla_prob_sum/leaves.size()<<", "<<(double)one_click_prob_sum/leaves.size()<<", "<<(double)taci_prob_sum/leaves.size()<<", "<<(double)tods_taci_prob_sum/leaves.size()<<", "<<max_oc_prob<<", "<<max_oc_prob<<", "<<max_taci_prob<<", "<<max_tods_taci_prob<<", "<<(double)cla_click_sum/leaves.size()<<", "<<(double)oc_click_sum/leaves.size()<<", "<<max_cla_click<<", "<<max_oc_click<<endl;
@@ -1882,7 +1868,7 @@ void poms_vary_d(int n, int k, float r){
             int cla_prob_sum = 0, one_click_prob_sum = 0, taci_prob_sum = 0, tods_taci_prob_sum = 0, oc_click_sum = 0, cla_click_sum = 0;
             int max_cla_prob = 0, max_oc_prob = 0, max_taci_prob = 0, max_tods_taci_prob = 0,
             max_cla_click = 0, max_oc_click = 0;
-            vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
+            // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
             ofstream ofile_stats(stats, ios::app);
             ofile_stats<<"k: "<<k<<endl;
@@ -1901,10 +1887,10 @@ void poms_vary_d(int n, int k, float r){
                 // pair<int,int> stat = poms_classical(k, dag, oracle, ans_t);
                 cla_prob_sum += stat.first;
                 max_cla_prob = max(max_cla_prob, stat.first);
-                cla_prob.push_back(stat.first);
+                // cla_prob.push_back(stat.first);
                 cla_click_sum += stat.second;
                 max_cla_click = max(max_cla_click, stat.second);
-                cla_clicks.push_back(stat.second);
+                // cla_clicks.push_back(stat.second);
                 if(ans_t != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error cla: the target is not correct"<<endl;
@@ -1917,11 +1903,11 @@ void poms_vary_d(int n, int k, float r){
                 visited = vector<int>(dag.n, 0);
                 pair<int,int> stat_one_click =  poms_one_click_bridge(k, dag, oracle, ans_t_one_click, visited, hpdfs_tree);
                 one_click_prob_sum += stat_one_click.first;
-                one_click_prob.push_back(stat_one_click.first);
+                // one_click_prob.push_back(stat_one_click.first);
                 max_oc_prob = max(max_oc_prob, stat_one_click.first);
                 oc_click_sum += stat_one_click.second;
                 max_oc_click = max(max_oc_click, stat_one_click.second);
-                oc_clicks.push_back(stat_one_click.second);
+                // oc_clicks.push_back(stat_one_click.second);
                 if(ans_t_one_click != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error: one click: the target is not correct"<<endl;
@@ -1937,7 +1923,7 @@ void poms_vary_d(int n, int k, float r){
                     cout<<"Expected: "<<t<<", got: "<<ans_t_taci<<endl;
                     exit(1);
                 }
-                taciturn_prob.push_back(prob_taci);
+                // taciturn_prob.push_back(prob_taci);
                 taci_prob_sum += prob_taci;
                 max_taci_prob = max(max_taci_prob, prob_taci);
 
@@ -1950,24 +1936,9 @@ void poms_vary_d(int n, int k, float r){
                     cout<<"Expected: "<<t<<", got: "<<ans_t_tods_taci<<endl;
                     exit(1);
                 }
-                tods_taci_prob.push_back(prob_tods_taci);
+                // tods_taci_prob.push_back(prob_tods_taci);
                 tods_taci_prob_sum += prob_tods_taci;
                 max_tods_taci_prob = max(max_tods_taci_prob, prob_tods_taci);
-                if(i % 2000 == 0 || i == leaves.size() - 1){
-                    ofstream ofile_stats(stats, ios::app);
-                    for(int i = 0; i < one_click_prob.size(); i++){
-                        ofile_stats<<cla_prob[i]<<" "<<one_click_prob[i]<<" "<<taciturn_prob[i]<<" "
-                        <<tods_taci_prob[i]<<" "<<oc_clicks[i]<<" "<<cla_clicks[i]<<endl;
-                    }
-                    //delete the temp result
-                    ofile_stats.close();
-                    cla_prob.clear();
-                    one_click_prob.clear();
-                    taciturn_prob.clear();
-                    tods_taci_prob.clear();
-                    oc_clicks.clear();
-                    cla_clicks.clear();
-                }
             }
             // cout.precision(2);
             ofile<<d<<", "<<(double)cla_prob_sum/leaves.size()<<", "<<(double)one_click_prob_sum/leaves.size()<<", "<<(double)taci_prob_sum/leaves.size()<<", "<<(double)tods_taci_prob_sum/leaves.size()<<", "<<max_oc_prob<<", "<<max_oc_prob<<", "<<max_taci_prob<<", "<<max_tods_taci_prob<<", "<<(double)cla_click_sum/leaves.size()<<", "<<(double)oc_click_sum/leaves.size()<<", "<<max_cla_click<<", "<<max_oc_click<<endl;
@@ -2038,7 +2009,7 @@ void poms_vary_r(int n, int k, int d, vector<float> rs = vector<float>{0, 0.1, 0
             int cla_prob_sum = 0, one_click_prob_sum = 0, taci_prob_sum = 0, tods_taci_prob_sum = 0, oc_click_sum = 0, cla_click_sum = 0;
             int max_cla_prob = 0, max_oc_prob = 0, max_taci_prob = 0, max_tods_taci_prob = 0,
             max_cla_click = 0, max_oc_click = 0;
-            vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
+            // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
             ofstream ofile_stats(stats, ios::app);
             ofile_stats<<"k: "<<k<<endl;
@@ -2056,10 +2027,10 @@ void poms_vary_r(int n, int k, int d, vector<float> rs = vector<float>{0, 0.1, 0
                 // pair<int,int> stat = poms_classical(k, dag, oracle, ans_t);
                 cla_prob_sum += stat.first;
                 max_cla_prob = max(max_cla_prob, stat.first);
-                cla_prob.push_back(stat.first);
+                // cla_prob.push_back(stat.first);
                 cla_click_sum += stat.second;
                 max_cla_click = max(max_cla_click, stat.second);
-                cla_clicks.push_back(stat.second);
+                // cla_clicks.push_back(stat.second);
                 if(ans_t != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error cla: the target is not correct"<<endl;
@@ -2072,11 +2043,11 @@ void poms_vary_r(int n, int k, int d, vector<float> rs = vector<float>{0, 0.1, 0
                 visited = vector<int>(dag.n, 0);
                 pair<int,int> stat_one_click =  poms_one_click_bridge(k, dag, oracle, ans_t_one_click, visited, hpdfs_tree);
                 one_click_prob_sum += stat_one_click.first;
-                one_click_prob.push_back(stat_one_click.first);
+                // one_click_prob.push_back(stat_one_click.first);
                 max_oc_prob = max(max_oc_prob, stat_one_click.first);
                 oc_click_sum += stat_one_click.second;
                 max_oc_click = max(max_oc_click, stat_one_click.second);
-                oc_clicks.push_back(stat_one_click.second);
+                // oc_clicks.push_back(stat_one_click.second);
                 if(ans_t_one_click != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error: one click: the target is not correct"<<endl;
@@ -2092,7 +2063,7 @@ void poms_vary_r(int n, int k, int d, vector<float> rs = vector<float>{0, 0.1, 0
                     cout<<"Expected: "<<t<<", got: "<<ans_t_taci<<endl;
                     exit(1);
                 }
-                taciturn_prob.push_back(prob_taci);
+                // taciturn_prob.push_back(prob_taci);
                 taci_prob_sum += prob_taci;
                 max_taci_prob = max(max_taci_prob, prob_taci);
 
@@ -2105,24 +2076,9 @@ void poms_vary_r(int n, int k, int d, vector<float> rs = vector<float>{0, 0.1, 0
                     cout<<"Expected: "<<t<<", got: "<<ans_t_tods_taci<<endl;
                     exit(1);
                 }
-                tods_taci_prob.push_back(prob_tods_taci);
+                // tods_taci_prob.push_back(prob_tods_taci);
                 tods_taci_prob_sum += prob_tods_taci;
                 max_tods_taci_prob = max(max_tods_taci_prob, prob_tods_taci);
-                if(i % 2000 == 0 || i == leaves.size() - 1){
-                    ofstream ofile_stats(stats, ios::app);
-                    for(int i = 0; i < one_click_prob.size(); i++){
-                        ofile_stats<<cla_prob[i]<<" "<<one_click_prob[i]<<" "<<taciturn_prob[i]<<" "
-                        <<tods_taci_prob[i]<<" "<<oc_clicks[i]<<" "<<cla_clicks[i]<<endl;
-                    }
-                    //delete the temp result
-                    ofile_stats.close();
-                    cla_prob.clear();
-                    one_click_prob.clear();
-                    taciturn_prob.clear();
-                    tods_taci_prob.clear();
-                    oc_clicks.clear();
-                    cla_clicks.clear();
-                }
             }
             // cout.precision(2);
             ofile<<r<<", "<<(double)cla_prob_sum/leaves.size()<<", "<<(double)one_click_prob_sum/leaves.size()<<", "<<(double)taci_prob_sum/leaves.size()<<", "<<(double)tods_taci_prob_sum/leaves.size()<<", "<<max_oc_prob<<", "<<max_oc_prob<<", "<<max_taci_prob<<", "<<max_tods_taci_prob<<", "<<(double)cla_click_sum/leaves.size()<<", "<<(double)oc_click_sum/leaves.size()<<", "<<max_cla_click<<", "<<max_oc_click<<endl;
@@ -2194,7 +2150,7 @@ void poms_vary_n(int k, int d, float r){
             int cla_prob_sum = 0, one_click_prob_sum = 0, taci_prob_sum = 0, tods_taci_prob_sum = 0, oc_click_sum = 0, cla_click_sum = 0;
             int max_cla_prob = 0, max_oc_prob = 0, max_taci_prob = 0, max_tods_taci_prob = 0,
             max_cla_click = 0, max_oc_click = 0;
-            vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
+            // vector<int> cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_clicks, cla_clicks;
             cout<<"k: "<<k<<endl;
             ofstream ofile_stats(stats, ios::app);
             ofile_stats<<"k: "<<k<<endl;
@@ -2212,10 +2168,10 @@ void poms_vary_n(int k, int d, float r){
                 // pair<int,int> stat = poms_classical(k, dag, oracle, ans_t);
                 cla_prob_sum += stat.first;
                 max_cla_prob = max(max_cla_prob, stat.first);
-                cla_prob.push_back(stat.first);
+                // cla_prob.push_back(stat.first);
                 cla_click_sum += stat.second;
                 max_cla_click = max(max_cla_click, stat.second);
-                cla_clicks.push_back(stat.second);
+                // cla_clicks.push_back(stat.second);
                 if(ans_t != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error cla: the target is not correct"<<endl;
@@ -2228,11 +2184,11 @@ void poms_vary_n(int k, int d, float r){
                 visited = vector<int>(dag.n, 0);
                 pair<int,int> stat_one_click =  poms_one_click_bridge(k, dag, oracle, ans_t_one_click, visited, hpdfs_tree);
                 one_click_prob_sum += stat_one_click.first;
-                one_click_prob.push_back(stat_one_click.first);
+                // one_click_prob.push_back(stat_one_click.first);
                 max_oc_prob = max(max_oc_prob, stat_one_click.first);
                 oc_click_sum += stat_one_click.second;
                 max_oc_click = max(max_oc_click, stat_one_click.second);
-                oc_clicks.push_back(stat_one_click.second);
+                // oc_clicks.push_back(stat_one_click.second);
                 if(ans_t_one_click != t){
                     cout<<"the "<<i<<"-th leaf"<<endl;
                     cout<<"Error: one click: the target is not correct"<<endl;
@@ -2248,7 +2204,7 @@ void poms_vary_n(int k, int d, float r){
                     cout<<"Expected: "<<t<<", got: "<<ans_t_taci<<endl;
                     exit(1);
                 }
-                taciturn_prob.push_back(prob_taci);
+                // taciturn_prob.push_back(prob_taci);
                 taci_prob_sum += prob_taci;
                 max_taci_prob = max(max_taci_prob, prob_taci);
 
@@ -2261,24 +2217,9 @@ void poms_vary_n(int k, int d, float r){
                     cout<<"Expected: "<<t<<", got: "<<ans_t_tods_taci<<endl;
                     exit(1);
                 }
-                tods_taci_prob.push_back(prob_tods_taci);
+                // tods_taci_prob.push_back(prob_tods_taci);
                 tods_taci_prob_sum += prob_tods_taci;
                 max_tods_taci_prob = max(max_tods_taci_prob, prob_tods_taci);
-                if(i % 2000 == 0 || i == leaves.size() - 1){
-                    ofstream ofile_stats(stats, ios::app);
-                    for(int i = 0; i < one_click_prob.size(); i++){
-                        ofile_stats<<cla_prob[i]<<" "<<one_click_prob[i]<<" "<<taciturn_prob[i]<<" "
-                        <<tods_taci_prob[i]<<" "<<oc_clicks[i]<<" "<<cla_clicks[i]<<endl;
-                    }
-                    //delete the temp result
-                    ofile_stats.close();
-                    cla_prob.clear();
-                    one_click_prob.clear();
-                    taciturn_prob.clear();
-                    tods_taci_prob.clear();
-                    oc_clicks.clear();
-                    cla_clicks.clear();
-                }
             }
             // cout.precision(2);
             ofile<<n<<", "<<(double)cla_prob_sum/leaves.size()<<", "<<(double)one_click_prob_sum/leaves.size()<<", "<<(double)taci_prob_sum/leaves.size()<<", "<<(double)tods_taci_prob_sum/leaves.size()<<", "<<max_oc_prob<<", "<<max_oc_prob<<", "<<max_taci_prob<<", "<<max_tods_taci_prob<<", "<<(double)cla_click_sum/leaves.size()<<", "<<(double)oc_click_sum/leaves.size()<<", "<<max_cla_click<<", "<<max_oc_click<<endl;
