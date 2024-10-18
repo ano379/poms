@@ -1547,7 +1547,7 @@ void test_poms_k(string f_name, string q_file, string of_name, string stats, vec
     }
     //write result to of_name
     ofstream ofile(of_name, ios::app);
-    ofile<<"k, classical_prob, one_click_prob, taciturn_prob, tods_taciturn_prob, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
+    ofile<<"k, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
     cout<<"leaf size: "<<leaves.size()<<endl;
     vector<int> visited(dag.n, 0);
     Tree hpdfs_tree;
@@ -1569,7 +1569,7 @@ void test_poms_k(string f_name, string q_file, string of_name, string stats, vec
             cout<<"k: "<<k<<endl;
             ofstream ofile_stats(stats, ios::app);
             ofile_stats<<"k: "<<k<<endl;
-            ofile_stats<<"cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, oc_click, cla_click"<<endl;
+            ofile_stats<<"#classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, #classical_clicks, #FIO_clicks"<<endl;
             ofile_stats.close();
             for(int i = 0; i < leaves.size(); i++){
                 if(i % 50 == 0){
@@ -1706,7 +1706,7 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
     ofstream ofile(of_name);
     ofile.close();
     ofile.open(of_name, ios::app);
-    ofile<<"k, classical_prob, one_click_prob, taciturn_prob, tods_taciturn_prob, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
+    ofile<<"k, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_query, max_FIO_query, max_new_taciturn_query, max_LMNT_taciturn_query, #classical_clicks, #FIO_clicks, max_classical_clicks, max_FIO_clicks"<<endl;
     cout<<"leaf size: "<<leaves.size()<<endl;
     vector<int> visited(dag.n, 0);
     Tree hpdfs_tree;
@@ -1813,7 +1813,7 @@ void poms_vary_d(int n, int k, float r){
     f.open(of_name);
     f.close();
     f.open(of_name, ios::app);
-    f<<"d, classical_prob, one_click_prob, taciturn_prob, tods_taciturn_prob, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
+    f<<"d, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_query, max_FIO_query, max_new_taciturn_query, max_LMNT_taciturn_query, #classical_clicks, #FIO_clicks, max_classical_clicks, max_FIO_clicks"<<endl;
     for(int d = 10; d <= 50; d+= 10){
         //generate the graph
         string f_name = "../data/syn/syn_" + to_string(n/10000) + "w_d" + to_string(d) + "_r0" + to_string((int)(r*10));
@@ -1954,7 +1954,7 @@ void poms_vary_r(int n, int k, int d, vector<float> rs = vector<float>{0, 0.1, 0
     f.open(of_name);
     f.close();
     f.open(of_name, ios::app);
-    f<<"r, classical_prob, one_click_prob, taciturn_prob, tods_taciturn_prob, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
+    f<<"r, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_query, max_FIO_query, max_new_taciturn_query, max_LMNT_taciturn_query, #classical_clicks, #FIO_clicks, max_classical_clicks, max_FIO_clicks"<<endl;
     for(float r : rs){
         //generate the graph
         string f_name = "../data/syn/syn_" + to_string(n/10000) + "w_d" + to_string(d) + "_r0" + to_string((int)(r*10));
@@ -2094,7 +2094,7 @@ void poms_vary_n(int k, int d, float r){
     f.open(of_name);
     f.close();
     f.open(of_name, ios::app);
-    f<<"n, classical_prob, one_click_prob, taciturn_prob, tods_taciturn_prob, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
+    f<<"n, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_query, max_FIO_query, max_new_taciturn_query, max_LMNT_taciturn_query, #classical_clicks, #FIO_clicks, max_classical_clicks, max_FIO_clicks"<<endl;
     vector<int> vary_n = {100000, 200000, 400000, 600000, 800000, 1000000};
     for(int n: vary_n){
         //generate the graph
@@ -2279,49 +2279,6 @@ void test_poms_syn(){
     f.close();
 }
 
-
-void hpdfs_vary_n(int d, int r, vector<int>& ns){
-    int repeats = 5;
-    string of_name = "../result/syn_hpdfs_d30_r01_varyn";
-    ofstream ofile(of_name);
-    vector<int> visited;
-    utility u;
-    ofile.open(of_name);
-    ofile<<"n, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_bridge, speedup_nm"<<endl;
-    ofile.close();
-    for(int n : ns){
-        string f_name = "../data/syn/syn_" + to_string(n/10000) + "w_d30_r01";
-        visited = vector<int>(n, 0);
-        Graph dag;
-        dag.load(f_name);
-        Tree tree;
-        double naive_time = 0;
-        double nm_time = 0, bridge_time = 0;
-        for(int i = 0; i < repeats; i++){
-            u.start();
-            hpdfs_naive(dag, tree);
-            u.stop();
-            naive_time += u.GetRuntime();
-            int time = 1;
-            visited = vector<int>(n, 0);
-            u.start();
-            hpdfs_nm(dag, tree, visited, time);
-            u.stop();
-            nm_time += u.GetRuntime();
-            visited = vector<int>(n, 0);
-            u.start();
-            hpdfs_bridge(dag, tree, visited);
-            u.stop();
-        // check_hpdfs(tree);
-            bridge_time += u.GetRuntime();
-        }
-        ofile.open(of_name, ios::app);
-        ofile<<n/1000<<"k, ";
-        ofile<<naive_time<<", "<<nm_time<<", "<<bridge_time<<", "<<naive_time/bridge_time<<", "<<naive_time/nm_time<<endl;
-        ofile.close();
-    }
-}
-
 void hpdfs_vary_d(int n, float r, vector<int>& ds){
     string of_name = "../result/syn_hpdfs_n"+ to_string(n/10000) +"w_r0"+ to_string((int)(10*r))+"_varyd";
     ofstream ofile(of_name);
@@ -2372,7 +2329,7 @@ void test_hpdfs_syn(){
     float r = 0.1;
     string of_name = "../result/syn_hpdfs_n"+ to_string(n/10000) +"w_r0"+ to_string((int)(10*r))+"_varyd";
     ofstream ofile(of_name);
-    ofile<<"d, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_bridge, speedup_nm"<<endl;
+    ofile<<"d, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_nm, speedup_bridge"<<endl;
     ofile.close();
     utility u;
     vector<int> visited;
@@ -2407,12 +2364,12 @@ void test_hpdfs_syn(){
         }
         ofile.open(of_name, ios::app);
         ofile<<d<<", ";
-        ofile<<naive_time/repeats<<", "<<nm_time/repeats<<", "<<bridge_time/repeats<<", "<<naive_time/bridge_time<<", "<<naive_time/nm_time<<endl;
+        ofile<<naive_time/repeats<<", "<<nm_time/repeats<<", "<<bridge_time/repeats<<", "<<naive_time/nm_time<<", "<<naive_time/bridge_time<<endl;
         ofile.close();
     }
     of_name = "../result/syn_hpdfs_n"+ to_string(n/10000) +"w_d30_varyr";
     ofile.open(of_name);
-    ofile<<"r, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_bridge, speedup_nm"<<endl;
+    ofile<<"r, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_nm, speedup_bridge"<<endl;
     ofile.close();
     for(float r = 0; r <= 0.4; r += 0.1){
         //generate the graph
@@ -2446,12 +2403,12 @@ void test_hpdfs_syn(){
         }
         ofile.open(of_name, ios::app);
         ofile<<r<<", ";
-        ofile<<naive_time/repeats<<", "<<nm_time/repeats<<", "<<bridge_time/repeats<<", "<<naive_time/bridge_time<<", "<<naive_time/nm_time<<endl;
+        ofile<<naive_time/repeats<<", "<<nm_time/repeats<<", "<<bridge_time/repeats<<", "<<naive_time/nm_time<<", "<<naive_time/bridge_time<<endl;
         ofile.close();
     }
     of_name = "../result/syn_hpdfs_d30_r01_varyn";
     ofile.open(of_name);
-    ofile<<"n, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_bridge, speedup_nm"<<endl;
+    ofile<<"n, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_nm, speedup_bridge"<<endl;
     ofile.close();
     int ns[] = {100000, 200000, 400000, 600000, 800000, 1000000};
     for(int i = 0; i < 6; i++){
@@ -2486,7 +2443,7 @@ void test_hpdfs_syn(){
         }
         ofile.open(of_name, ios::app);
         ofile<<n/1000<<"k, ";
-        ofile<<naive_time/repeats<<", "<<nm_time/repeats<<", "<<bridge_time/repeats<<", "<<naive_time/bridge_time<<", "<<naive_time/nm_time<<endl;
+        ofile<<naive_time/repeats<<", "<<nm_time/repeats<<", "<<bridge_time/repeats<<", "<<naive_time/nm_time<<", "<<naive_time/bridge_time<<endl;
         ofile.close();
     }
 }
@@ -2584,7 +2541,7 @@ void poms_vary_n_time(string of_name, int d, float r, int sample_size){
     f.close();
     f.open(of_name, ios::app);
     utility u;
-    f<<"n, naive_time, nm_time, bridge_time"<<endl;
+    f<<"n, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
     vector<int> vary_n = {100000, 200000, 400000, 600000, 800000, 1000000};
     for(int n: vary_n){
         //generate the graph
@@ -2679,7 +2636,7 @@ void poms_vary_n_time(string of_name, int d, float r, int sample_size){
         naive_time /= leaves.size() *  ks.size();
         nm_time /= leaves.size() * ks.size();
         bridge_time /= leaves.size() * ks.size();
-        f<<n<<", "<<naive_time<<", "<<nm_time<<", "<<bridge_time<<endl;
+        f<<n<<", "<<naive_time<<", "<<nm_time<<", "<<bridge_time<<", "<<naive_time/nm_time<<", "<<naive_time/bridge_time<<endl;
     }
     f.close();
 }
@@ -2698,7 +2655,7 @@ void poms_vary_d_time(string of_name, int n, float r, int sample_size){
     f.close();
     f.open(of_name, ios::app);
     utility u;
-    f<<"d, naive_time, nm_time, bridge_time"<<endl;
+    f<<"d, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
     vector<int> ds = {10, 20, 30, 40, 50};
     for(int d: ds){
         //generate the graph
@@ -2796,7 +2753,7 @@ void poms_vary_d_time(string of_name, int n, float r, int sample_size){
             naive_time /= leaves.size() *  ks.size();
             nm_time /= leaves.size() * ks.size();
             bridge_time /= leaves.size() * ks.size();
-            f<<d<<", "<<naive_time<<", "<<nm_time<<", "<<bridge_time<<endl;
+            f<<d<<", "<<naive_time<<", "<<nm_time<<", "<<bridge_time<<", "<<naive_time/nm_time<<", "<<naive_time/bridge_time<<endl;
         }
     }
     f.close();
@@ -2811,7 +2768,7 @@ void poms_vary_r_time(string of_name, int n, int d, int sample_size){
     f.close();
     f.open(of_name, ios::app);
     utility u;
-    f<<"r, naive_time, nm_time, bridge_time"<<endl;
+    f<<"r, naive_time, nm_time, bridge_time, nm_speedup, bridge_speedup"<<endl;
     vector<float> rs = {0, 0.1, 0.2, 0.3, 0.4};
     for(float r: rs){
         //generate the graph
@@ -2908,7 +2865,7 @@ void poms_vary_r_time(string of_name, int n, int d, int sample_size){
             naive_time /= leaves.size() *  ks.size();
             nm_time /= leaves.size() * ks.size();
             bridge_time /= leaves.size() * ks.size();
-            f<<r<<", "<<naive_time<<", "<<nm_time<<", "<<bridge_time<<endl;
+            f<<r<<", "<<naive_time<<", "<<nm_time<<", "<<bridge_time<<", "<<naive_time/nm_time<<", "<<naive_time/bridge_time<<endl;
         }
     }
     f.close();
@@ -3042,8 +2999,8 @@ void process_lvl(string data, string f_name, string q_name, string of_name, vect
     //read in the query
     ifstream ifile(q_name);
     if(!ifile.is_open()){
-        cout<<"Error: query file not found"<<endl;
-        exit(1);
+        cout<<"Error(level stats): query file not found"<<endl;
+        return;
     }
     int t;
     while(ifile>>t){
@@ -3090,8 +3047,8 @@ void process_lvl(string data, string f_name, string q_name, string of_name, vect
     ifile.close();
     ifile.open(f_name);
     if(!ifile.is_open()){
-        cout<<"Error: result stats file not found"<<endl;
-        exit(1);
+        cout<<"Error(level stats): result stats file not found"<<endl;
+        return;
     }
     int cla_prob, oc_prob, taci_prob, tods_taci, oc_click, cla_click;
     cout<<"qsize: "<<q_size<<endl;
@@ -3130,7 +3087,7 @@ void process_lvl(string data, string f_name, string q_name, string of_name, vect
         }
     }
     ofstream ofile(of_name);
-    ofile<<"lvl, cla_prob, one_click_prob, taciturn_prob, tods_taci_prob, max_cla_prob, max_one_click_prob, max_taciturn_prob, max_tods_taci_prob, cla_clicks, oc_clicks, max_cla_clicks, max_oc_clicks"<<endl;
+    ofile<<"lvl, #classical_query, #FIO_query, #new_taciturn_query, #LMNT_taciturn_query, max_cla_query, max_FIO_query, max_new_taciturn_query, max_LMNT_taciturn_query, #classical_clicks, #FIO_clicks, max_classical_clicks, max_FIO_clicks"<<endl;
     for(int i = 0; i <= max_lvl; i++){
         int lvl_count = query_lvl_count[i];
         if(lvl_count == 0){
