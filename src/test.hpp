@@ -1705,8 +1705,6 @@ void poms_vary_k(string f_name, string q_file, string of_name, string stats, vec
     //write result to of_name
     ofstream ofile(of_name);
     ofile.close();
-    ofile.open(stats);
-    ofile.close();
     ofile.open(of_name, ios::app);
     ofile<<"k, classical_prob, one_click_prob, taciturn_prob, tods_taciturn_prob, max_cla_prob, max_oc_prob, max_taci_prob, max_tods_taci_prob, cla_click, oc_click, max_cla_click, max_oc_click"<<endl;
     cout<<"leaf size: "<<leaves.size()<<endl;
