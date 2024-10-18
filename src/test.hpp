@@ -2371,7 +2371,8 @@ void test_hpdfs_syn(){
     ofile.open(of_name);
     ofile<<"r, naive_hpdfs_time, nm_hpdfs_time, bridge_hpdfs_time, speedup_nm, speedup_bridge"<<endl;
     ofile.close();
-    for(float r = 0; r <= 0.4; r += 0.1){
+    vector<float> rs = {0, 0.1, 0.2, 0.3, 0.4};
+    for(float r : rs){
         //generate the graph
         string f_name = "../data/syn/syn_" + to_string(n/10000) + "w_d30_r0" + to_string((int)(r*10));
         visited = vector<int>(n, 0);
